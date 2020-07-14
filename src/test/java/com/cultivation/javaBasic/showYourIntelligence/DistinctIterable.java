@@ -30,17 +30,28 @@ class DistinctIterator<E> implements Iterator<E> {
     private final Iterator<E> iterator;
 
     DistinctIterator(Iterator<E> iterator) {
-        this.iterator = iterator;
+        this.iterator = getDistinctIterator(iterator);
     }
 
     @Override
     public boolean hasNext() {
-        throw new NotImplementedException();
+        return iterator.hasNext();
     }
 
     @Override
     public E next() {
-        throw new NotImplementedException();
+        return iterator.next();
+    }
+
+    private Iterator<E> getDistinctIterator(Iterator<E> iterator) {
+        ArrayList<E> uniqueList = new ArrayList<>();
+        while (iterator.hasNext()) {
+            E currentValue = iterator.next();
+            if (!uniqueList.contains(currentValue)) {
+                uniqueList.add(currentValue);
+            }
+        }
+        return uniqueList.iterator();
     }
     // --end->
 }
